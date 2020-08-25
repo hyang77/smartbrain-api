@@ -1,8 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
+
 const db = {
   users: [
     {
@@ -33,7 +36,7 @@ app.post("/signin", (req, res) => {
     req.body.email === db.users[0].email &&
     req.body.password === db.users[0].password
   ) {
-    res.json("success");
+    res.json(db.users[0]);
   } else {
     res.json("fail to signin");
   }
@@ -45,7 +48,6 @@ app.post("/register", (req, res) => {
     id: "125",
     name: name,
     email: email,
-    password: password,
     entries: "0",
     joined: new Date(),
   });
